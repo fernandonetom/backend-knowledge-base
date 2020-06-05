@@ -6,8 +6,9 @@ app.db = db;
 
 consign()
 	.then("./config/middlewares.js")
+	.then("./api/validation.js")
 	.then("./api")
-	.then("./config/ro utes.js")
+	.then("./config/routes.js")
 	.into(app);
 
 const server = app.listen(3000, () => {
