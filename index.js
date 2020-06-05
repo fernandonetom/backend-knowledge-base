@@ -10,7 +10,7 @@ consign()
 	.then("./api")
 	.then("./config/routes.js")
 	.into(app);
-
-const server = app.listen(3000, () => {
+var port = process.env.PORT || 3000;
+const server = app.listen(port, () => {
 	console.log("Server ruinning in port: " + server.address().port);
 });
