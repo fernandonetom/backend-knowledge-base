@@ -1,4 +1,8 @@
-const { authSecret } = require("../.envAuth");
+try {
+	const { authSecret } = require("../.envAuth");
+} catch (msg) {
+	const authSecret = process.env.authSecret;
+}
 const jwt = require("jwt-simple");
 const bcrypt = require("bcrypt-nodejs");
 
