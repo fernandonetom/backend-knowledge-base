@@ -1,6 +1,9 @@
 const schedule = require("node-schedule");
+const moment = require("moment");
 
 module.exports = (app) => {
+	const dateNow = moment.tz("America/Sao_Paulo").format();
+
 	schedule.scheduleJob("*/1 * * * *", async () => {
 		const usersCount = await app
 			.db("users")
@@ -18,9 +21,9 @@ module.exports = (app) => {
 			users: usersCount.count,
 			categories: categoriesCount.count,
 			articlesCount: articlesCount.count,
-			createdAt: new Date(),
+			createdAt: dateNow,
 		});
-
+		console.log(stat);
 		const changeUsers = !lastStat || stat.users !== lastStat.users;
 		const changeCategories =
 			!lastStat || stat.categories !== lastStat.categories;
@@ -30,7 +33,7 @@ module.exports = (app) => {
 			stat
 				.save()
 				.then(() =>
-					console.log("[Stats] Estatisticas atualizadas em: " + new Date())
+					console.log("[Stats] Estatisticas atualizadas em: " + dateNow)
 				);
 		}
 	});
